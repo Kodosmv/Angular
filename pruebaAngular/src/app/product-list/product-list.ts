@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { IProduct } from '../interfaces/i-product';
-
+import { NgClass, NgStyle } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-product-list',
-  imports: [],
+  imports: [NgClass, FormsModule],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
 export class ProductList {
   title = 'Mi lista de productos';
+  filterSearch: string = ''; // Podríamos poner un valor por defecto
   headers = { image: 'Image', desc: 'Producto', price: 'Precio', avail: 'Disponible' };
   products: IProduct[] = [
     {
@@ -28,4 +30,8 @@ export class ProductList {
       rating: 4,
     },
   ];
+  showImage = true;
+  toggleImage() {
+    this.showImage = !this.showImage;
+  }
 }
