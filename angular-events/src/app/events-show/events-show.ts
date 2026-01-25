@@ -14,15 +14,20 @@ import { EventFilterPipe } from '../pipes/event-filter-pipe';
 })
 export class EventsShow {
   orderPrice() {
-   /* this.events = this.events.sort(a, b){
-      if(a.price>b.price){
-        return 1;
-      }
-    } );
-     */
+    this.search = '';
+   this.events = this.events.sort((a, b) => {
+    
+    return a.price - b.price;
+  });
   }
   orderDate() {
-    throw new Error('Method not implemented.');
+    this.search = '';
+    this.events = this.events.sort((a, b) => {
+      
+      const dA = new Date(a.date);
+      const dB = new Date(b.date);
+      return dA.getTime() - dB.getTime(); 
+    });
   }
   search = '';
   events: IEvent[] = [
@@ -38,7 +43,27 @@ export class EventsShow {
       image: 'img2.jpg',
       date: '2009-05-08',
       description: 'siiii',
-      price: 55,
+      price: 5,
     },
   ];
+  newEvent: IEvent = { title: '',
+    description: '', 
+    image: '', price: 0,
+    date: ''
+  };
+  addEvent() {
+    this.events.push(this.newEvent);
+    this.newEvent = {
+      title: '',
+      description: '', 
+      image: '',
+      price: 0,
+      date: ''
+    };
+  }
+  changeImage(fileInput: HTMLInputElement) {
+    if (!fileInput.files || fileInput.files.length === 0) { return; } const reader: FileReader = new FileReader(); reader.readAsDataURL(fileInput.files[0]); reader.addEventListener('loadend', e => {
+    this.newEvent.image = reader.result as string;
+    });
+  }
 }
