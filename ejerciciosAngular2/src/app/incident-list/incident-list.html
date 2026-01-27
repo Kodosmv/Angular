@@ -1,0 +1,13 @@
+<h2>Tabal de incidannecia table</h2>
+<table border="2">
+  <td>tipo</td>
+  <td>Descripcion</td>
+  <td>Estado</td>
+  <td>Cambio</td>
+  <!--  <tr incident-item></tr>
+  <tr incident-item></tr> -->
+
+  @for (inc of incidencias; track inc) {
+    <tr incident-item [incidencia]="inc" (cambio)="inc.estado = $event"></tr>
+  }
+</table>
